@@ -1,0 +1,367 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__386906547<Principal, UserRole__91647283>
+  };
+type AccountStatus__134284953 = {#active; #disabled};
+type AccountStatus__910072005 = {#active; #disabled};
+type AdminSettings__357217276 = {var otherCosts : Nat};
+type AnalyticsEventType__365748593 =
+  {
+    #generationCompleted;
+    #generationFailed;
+    #generationStarted;
+    #login;
+    #paymentCompleted;
+    #registration;
+    #subscriptionCancelled;
+    #subscriptionRenewed;
+    #subscriptionStarted
+  };
+type AnalyticsEventType__525567647 =
+  {
+    #generationCompleted;
+    #generationFailed;
+    #generationStarted;
+    #login;
+    #paymentCompleted;
+    #registration;
+    #subscriptionCancelled;
+    #subscriptionRenewed;
+    #subscriptionStarted
+  };
+type AnalyticsEvent__594708326 =
+  {
+    var eventType : AnalyticsEventType__365748593;
+    id : Nat;
+    var metadata : ?Text;
+    var timestamp : Timestamp__344161438;
+    user : UserId__1013445209
+  };
+type AnalyticsEvent__85619932 =
+  {
+    var eventType : AnalyticsEventType__525567647;
+    id : Nat;
+    var metadata : ?Text;
+    var timestamp : Timestamp__504563006;
+    user : UserId__546900050
+  };
+type ChatConversation__1012649965 =
+  {
+    var createdAt : Timestamp__504563006;
+    id : Nat;
+    owner : UserId__546900050;
+    var title : Text
+  };
+type ChatConversation__1029897403 =
+  {
+    var createdAt : Timestamp__207282737;
+    id : Nat;
+    owner : UserId__428033063;
+    var title : Text
+  };
+type ChatConversation__405574502 =
+  {
+    var createdAt : Timestamp__421365205;
+    id : Nat;
+    owner : UserId__1012865330;
+    var title : Text
+  };
+type ChatMessage__444126428 =
+  {
+    var content : Text;
+    conversationId : Nat;
+    var createdAt : Timestamp__504563006;
+    id : Nat;
+    owner : UserId__546900050;
+    var role : {#assistant; #user}
+  };
+type ChatMessage__62642266 =
+  {
+    var content : Text;
+    conversationId : Nat;
+    var createdAt : Timestamp__207282737;
+    id : Nat;
+    owner : UserId__428033063;
+    var role : ChatRole__1070699626
+  };
+type ChatMessage__933362490 =
+  {
+    var content : Text;
+    conversationId : Nat;
+    var createdAt : Timestamp__421365205;
+    id : Nat;
+    owner : UserId__1012865330;
+    var role : {#assistant; #user}
+  };
+type ChatRole__1070699626 = {#assistant; #user};
+type Data__265875254<K, V> = {var count : Nat__58649523; kvs : [var ?(K, V)]};
+type GenerationStatus__451306053 = {#completed; #failed; #pending};
+type GenerationStatus__562376730 = {#completed; #failed; #pending};
+type GenerationStatus__763936316 = {#completed; #failed; #pending};
+type Generation__134184092 =
+  {
+    var createdAt : Timestamp__504563006;
+    id : Nat;
+    owner : UserId__546900050;
+    projectId : Nat;
+    var status : GenerationStatus__763936316;
+    var tool : Text
+  };
+type Generation__51323540 =
+  {
+    var createdAt : Timestamp__207282737;
+    id : Nat;
+    owner : UserId__428033063;
+    projectId : Nat;
+    var status : GenerationStatus__451306053;
+    var tool : Text
+  };
+type Generation__961111620 =
+  {
+    var createdAt : Timestamp__421365205;
+    id : Nat;
+    owner : UserId__1012865330;
+    projectId : Nat;
+    var status : GenerationStatus__562376730;
+    var tool : Text
+  };
+type Internal__161573640<K, V> =
+  {children : [var ?Node__430031793<K, V>]; data : Data__265875254<K, V>};
+type Leaf__1045638083<K, V> = {data : Data__265875254<K, V>};
+type Map__13625999<K, V> =
+  {var root : Node__430031793<K, V>; var size : Nat__58649523};
+type Map__386906547<K, V> = Map__670138087<K, V>;
+type Map__670138087<K, V> = Map__13625999<K, V>;
+type Nat__58649523 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__1008187958 =
+  {
+    accessControlState : AccessControlState__201339279;
+    adminSettings : AdminSettings__357217276;
+    conversations : Map__386906547<Nat, ChatConversation__1012649965>;
+    events : Map__386906547<Nat, AnalyticsEvent__85619932>;
+    files : Map__386906547<Nat, SavedFile__913586187>;
+    generations : Map__386906547<Nat, Generation__134184092>;
+    messages : Map__386906547<Nat, ChatMessage__444126428>;
+    nextEventId : {var value : Nat};
+    nextId : {var value : Nat};
+    projects : Map__386906547<Nat, Project__585256118>;
+    settings : Map__386906547<Principal, UserSettings__640574361>;
+    subscriptions : Map__386906547<Principal, SubscriptionStatus__229360038>;
+    users : Map__386906547<Principal, UserRecord__605152142>
+  };
+type NewActor__510466536 =
+  {
+    accessControlState : AccessControlState__201339279;
+    conversations : Map__386906547<Nat, ChatConversation__405574502>;
+    files : Map__386906547<Nat, SavedFile__61431239>;
+    generations : Map__386906547<Nat, Generation__961111620>;
+    messages : Map__386906547<Nat, ChatMessage__933362490>;
+    nextId : {var value : Nat};
+    projects : Map__386906547<Nat, Project__320176051>;
+    settings : Map__386906547<Principal, UserSettings__821066565>;
+    subscriptions : Map__386906547<Principal, SubscriptionStatus__677357834>
+  };
+type Node__430031793<K, V> =
+  {#internal : Internal__161573640<K, V>; #leaf : Leaf__1045638083<K, V>};
+type OldActor__149200614 =
+  {
+    accessControlState : AccessControlState__201339279;
+    conversations : Map__386906547<Nat, ChatConversation__1012649965>;
+    files : Map__386906547<Nat, SavedFile__913586187>;
+    generations : Map__386906547<Nat, Generation__134184092>;
+    messages : Map__386906547<Nat, ChatMessage__444126428>;
+    nextId : {var value : Nat};
+    projects : Map__386906547<Nat, Project__585256118>;
+    settings : Map__386906547<Principal, UserSettings__640574361>;
+    subscriptions : Map__386906547<Principal, SubscriptionStatus__229360038>
+  };
+type OldActor__549429242 = {};
+type Project__320176051 =
+  {
+    var createdAt : Timestamp__421365205;
+    id : Nat;
+    var name : Text;
+    owner : UserId__1012865330;
+    var updatedAt : Timestamp__421365205
+  };
+type Project__543201761 =
+  {
+    var createdAt : Timestamp__207282737;
+    id : Nat;
+    var name : Text;
+    owner : UserId__428033063;
+    var updatedAt : Timestamp__207282737
+  };
+type Project__585256118 =
+  {
+    var createdAt : Timestamp__504563006;
+    id : Nat;
+    var name : Text;
+    owner : UserId__546900050;
+    var updatedAt : Timestamp__504563006
+  };
+type SavedFile__400360860 =
+  {
+    var createdAt : Timestamp__207282737;
+    id : Nat;
+    var mimeType : Text;
+    var name : Text;
+    owner : UserId__428033063;
+    var projectId : ?Nat;
+    var sizeBytes : Nat
+  };
+type SavedFile__61431239 =
+  {
+    var createdAt : Timestamp__421365205;
+    id : Nat;
+    var mimeType : Text;
+    var name : Text;
+    owner : UserId__1012865330;
+    var projectId : ?Nat;
+    var sizeBytes : Nat
+  };
+type SavedFile__913586187 =
+  {
+    var createdAt : Timestamp__504563006;
+    id : Nat;
+    var mimeType : Text;
+    var name : Text;
+    owner : UserId__546900050;
+    var projectId : ?Nat;
+    var sizeBytes : Nat
+  };
+type SubscriptionStatus__229360038 =
+  {
+    var expiresAt : ?Timestamp__504563006;
+    owner : UserId__546900050;
+    var tier : {#free; #pro}
+  };
+type SubscriptionStatus__677357834 =
+  {
+    var expiresAt : ?Timestamp__421365205;
+    owner : UserId__1012865330;
+    var tier : {#free; #pro}
+  };
+type SubscriptionStatus__828085197 =
+  {
+    var expiresAt : ?Timestamp__207282737;
+    owner : UserId__428033063;
+    var tier : SubscriptionTier__180754569
+  };
+type SubscriptionTier__180754569 = {#free; #pro};
+type Timestamp__207282737 = Int;
+type Timestamp__344161438 = Int;
+type Timestamp__421365205 = Int;
+type Timestamp__504563006 = Int;
+type UserId__1012865330 = Principal;
+type UserId__1013445209 = Principal;
+type UserId__428033063 = Principal;
+type UserId__546900050 = Principal;
+type UserRecord__302371806 =
+  {
+    var accountStatus : AccountStatus__134284953;
+    var displayName : Text;
+    var email : ?Text;
+    id : UserId__1013445209;
+    var lastActiveAt : Timestamp__344161438;
+    var registeredAt : Timestamp__344161438
+  };
+type UserRecord__605152142 =
+  {
+    var accountStatus : AccountStatus__910072005;
+    var displayName : Text;
+    var email : ?Text;
+    id : UserId__546900050;
+    var lastActiveAt : Timestamp__504563006;
+    var registeredAt : Timestamp__504563006
+  };
+type UserRole__91647283 = {#admin; #guest; #user};
+type UserSettings__291817964 =
+  {
+    var displayName : Text;
+    var email : ?Text;
+    var language : Text;
+    var notificationsEnabled : Bool;
+    owner : UserId__428033063;
+    var theme : Text
+  };
+type UserSettings__640574361 =
+  {
+    var displayName : Text;
+    var email : ?Text;
+    var language : Text;
+    var notificationsEnabled : Bool;
+    owner : UserId__546900050;
+    var theme : Text
+  };
+type UserSettings__821066565 =
+  {
+    var displayName : Text;
+    var email : ?Text;
+    var language : Text;
+    var notificationsEnabled : Bool;
+    owner : UserId__1012865330;
+    var theme : Text
+  };
+{
+  "20260912_130000" : (_old : OldActor__549429242) -> NewActor__510466536;
+  "20260912_140000" : (old : OldActor__149200614) -> NewActor__1008187958
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__386906547<Principal, UserRole__91647283>
+    };
+  stable adminSettings : {var otherCosts : Nat};
+  stable conversations :
+    {
+      var root : Node__430031793<Nat, ChatConversation__1029897403>;
+      var size : Nat__58649523
+    };
+  stable events :
+    {
+      var root : Node__430031793<Nat, AnalyticsEvent__594708326>;
+      var size : Nat__58649523
+    };
+  stable files :
+    {
+      var root : Node__430031793<Nat, SavedFile__400360860>;
+      var size : Nat__58649523
+    };
+  stable generations :
+    {
+      var root : Node__430031793<Nat, Generation__51323540>;
+      var size : Nat__58649523
+    };
+  stable messages :
+    {
+      var root : Node__430031793<Nat, ChatMessage__62642266>;
+      var size : Nat__58649523
+    };
+  stable nextEventId : {var value : Nat};
+  stable nextId : {var value : Nat};
+  stable projects :
+    {
+      var root : Node__430031793<Nat, Project__543201761>;
+      var size : Nat__58649523
+    };
+  stable settings :
+    {
+      var root : Node__430031793<Principal, UserSettings__291817964>;
+      var size : Nat__58649523
+    };
+  stable subscriptions :
+    {
+      var root : Node__430031793<Principal, SubscriptionStatus__828085197>;
+      var size : Nat__58649523
+    };
+  stable users :
+    {
+      var root : Node__430031793<Principal, UserRecord__302371806>;
+      var size : Nat__58649523
+    }
+};

@@ -1,0 +1,345 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserSettingsView = 
+ record {
+   displayName: text;
+   email: opt text;
+   language: text;
+   notificationsEnabled: bool;
+   owner: UserId;
+   theme: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserMetrics = 
+ record {
+   dailyActive: nat;
+   monthlyActive: nat;
+   newThisMonth: nat;
+   newThisWeek: nat;
+   newToday: nat;
+   retentionRate: opt float64;
+   returningUsers: nat;
+   totalRegistered: nat;
+ };
+type UserId = principal;
+type UserDetail = 
+ record {
+   featureUsage: vec FeatureUsage;
+   metrics: UserMetrics;
+   recentEvents: vec AnalyticsEventView;
+   user: AdminUserRow;
+ };
+type Timestamp = int;
+type SubscriptionTier = 
+ variant {
+   free;
+   pro;
+ };
+type SubscriptionStatusView = 
+ record {
+   expiresAt: opt Timestamp;
+   owner: UserId;
+   tier: SubscriptionTier;
+ };
+type SubscriptionMetrics = 
+ record {
+   activeSubscriptions: nat;
+   cancelledSubscriptions: nat;
+   freeUsers: nat;
+   newSubscriptions: nat;
+   premiumUsers: nat;
+   renewals: nat;
+   subscriptionRevenue: RevenueSummary;
+ };
+type SavedFileView = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   mimeType: text;
+   name: text;
+   owner: UserId;
+   projectId: opt nat;
+   sizeBytes: nat;
+ };
+type RevenueSummary = 
+ record {
+   advertisement: nat;
+   oneTime: nat;
+   status: ConnectionStatus;
+   subscription: nat;
+   thisMonth: nat;
+   thisWeek: nat;
+   today: nat;
+   total: nat;
+ };
+type Result__1 = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ variant {
+   err: FileUploadError;
+   ok: SavedFileView;
+ };
+type ProjectView = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   name: text;
+   owner: UserId;
+   updatedAt: Timestamp;
+ };
+type ProfitSummary = 
+ record {
+   aiApiCost: nat;
+   estimatedProfit: nat;
+   otherCosts: nat;
+   profitMargin: opt float64;
+   status: ConnectionStatus;
+   totalRevenue: nat;
+ };
+type ImageGenerationResult = 
+ variant {
+   ok: record {generationId: nat;};
+   providerNotConfigured;
+ };
+type GenerationView = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   owner: UserId;
+   projectId: nat;
+   status: GenerationStatus;
+   tool: text;
+ };
+type GenerationStatus = 
+ variant {
+   completed;
+   failed;
+   pending;
+ };
+type FileUploadError = 
+ variant {
+   notAuthorized;
+   tooLarge: nat;
+   unsupportedType: text;
+ };
+type FileUpload = 
+ record {
+   mimeType: text;
+   name: text;
+   sizeBytes: nat;
+ };
+type FeatureUsage = 
+ record {
+   averageGenerationsPerUser: opt float64;
+   failedGenerations: nat;
+   numberOfUsers: nat;
+   successfulGenerations: nat;
+   tool: text;
+   totalGenerations: nat;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DateRange = 
+ variant {
+   custom: record {
+             from: Timestamp;
+             to: Timestamp;
+           };
+   last30Days;
+   last7Days;
+   last90Days;
+   today;
+ };
+type DashboardOverview = 
+ record {
+   activeUsersThisMonth: nat;
+   activeUsersToday: nat;
+   estimatedProfit: ProfitSummary;
+   newUsersToday: nat;
+   premiumUsers: nat;
+   totalGenerations: nat;
+   totalRevenue: RevenueSummary;
+   totalUsers: nat;
+ };
+type CsvExport = 
+ record {
+   content: text;
+   filename: text;
+ };
+type ConnectionStatus = 
+ variant {
+   connected;
+   notConnected;
+ };
+type ChatRole = 
+ variant {
+   assistant;
+   user;
+ };
+type ChatResult = 
+ variant {
+   ok: record {message: text;};
+   providerNotConfigured;
+ };
+type ChatMessageView = 
+ record {
+   content: text;
+   conversationId: nat;
+   createdAt: Timestamp;
+   id: nat;
+   owner: UserId;
+   role: ChatRole;
+ };
+type ChatConversationView = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   owner: UserId;
+   title: text;
+ };
+type ChartSeries = 
+ record {
+   points: vec ChartPoint;
+   range: ChartRange;
+ };
+type ChartRange = 
+ variant {
+   last30Days;
+   last7Days;
+   last90Days;
+ };
+type ChartPoint = 
+ record {
+   activeUsers: nat;
+   date: Timestamp;
+   newUsers: nat;
+   retentionRate: opt float64;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type AnalyticsEventView = 
+ record {
+   eventType: AnalyticsEventType;
+   id: nat;
+   metadata: opt text;
+   timestamp: Timestamp;
+   user: UserId;
+ };
+type AnalyticsEventType = 
+ variant {
+   generationCompleted;
+   generationFailed;
+   generationStarted;
+   login;
+   paymentCompleted;
+   registration;
+   subscriptionCancelled;
+   subscriptionRenewed;
+   subscriptionStarted;
+ };
+type AdminUserRow = 
+ record {
+   accountStatus: AccountStatus;
+   aiGenerations: nat;
+   email: opt text;
+   id: UserId;
+   lastActiveAt: Timestamp;
+   name: text;
+   registeredAt: Timestamp;
+   subscriptionStatus: SubscriptionStatusView;
+   totalAmountSpent: nat;
+ };
+type AdminSettingsView = record {otherCosts: nat;};
+type AccountStatus = 
+ variant {
+   active;
+   disabled;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result_1);
+  _internet_identity_sign_in_start: () -> (blob);
+  addMessage: (conversationId: nat, content: text) -> (opt ChatMessageView);
+  adminExportAnalyticsCsv: (dateRange: opt DateRange) -> (CsvExport) query;
+  adminExportUsersCsv: (search: opt text, dateRange: opt DateRange) ->
+   (CsvExport) query;
+  adminGetChartSeries: (range: ChartRange) -> (ChartSeries) query;
+  adminGetDashboardOverview: () -> (DashboardOverview) query;
+  adminGetFeatureUsage: () -> (vec FeatureUsage) query;
+  adminGetSettings: () -> (AdminSettingsView) query;
+  adminGetSubscriptionMetrics: () -> (SubscriptionMetrics) query;
+  adminGetUserDetail: (userId: principal) -> (opt UserDetail) query;
+  adminGetUserMetrics: () -> (UserMetrics) query;
+  adminListUsers: (search: opt text, dateRange: opt DateRange) ->
+   (vec AdminUserRow) query;
+  adminUpdateOtherCosts: (otherCosts: nat) -> (AdminSettingsView);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  chat: (conversationId: nat, message: text) -> (ChatResult);
+  createConversation: (title: text) -> (ChatConversationView);
+  createProject: (name: text) -> (ProjectView);
+  deleteConversation: (conversationId: nat) -> (bool);
+  deleteFile: (fileId: nat) -> (bool);
+  deleteProject: (projectId: nat) -> (bool);
+  execute: (qJson: text) -> (Result__1) query;
+  generateImage: (projectId: nat, prompt: text) -> (ImageGenerationResult);
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getSubscription: () -> (opt SubscriptionStatusView) query;
+  getUserSettings: () -> (opt UserSettingsView) query;
+  isCallerAdmin: () -> (bool) query;
+  listConversations: () -> (vec ChatConversationView) query;
+  listFiles: () -> (vec SavedFileView) query;
+  listGenerations: () -> (vec GenerationView) query;
+  listMessages: (conversationId: nat) -> (vec ChatMessageView) query;
+  listProjects: () -> (vec ProjectView) query;
+  renameProject: (projectId: nat, name: text) -> (opt ProjectView);
+  saveFile: (projectId: opt nat, upload: FileUpload) -> (Result);
+  schema: () -> (text) query;
+  updateSubscription: (tier: SubscriptionTier, expiresAt: opt Timestamp) ->
+   (SubscriptionStatusView);
+  updateUserSettings: (theme: text, notificationsEnabled: bool, displayName:
+   text, email: opt text, language: text) -> (UserSettingsView);
+}

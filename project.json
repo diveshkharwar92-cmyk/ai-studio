@@ -1,0 +1,21 @@
+{
+  "overview": "A secure, responsive Admin Analytics Dashboard for the AI Studio app, showing real user, AI generation, and subscription statistics with per-feature usage, user management, CSV export, and dark/light sidebar UI.",
+  "features": [
+    "Secure admin-only access to /admin",
+    "Real dashboard cards for users, activity, generations, and subscriptions",
+    "User analytics charts for 7/30/90-day ranges with date filters",
+    "Per-feature AI usage tracking",
+    "Searchable user table with per-user detail pages",
+    "CSV export of analytics and user data",
+    "Revenue, costs and profit sections with 'Not connected' states",
+    "Dark/light mode and responsive mobile design"
+  ],
+  "category": "admin-dashboard",
+  "tags": [
+    "admin",
+    "analytics",
+    "dashboard",
+    "productivity"
+  ],
+  "last_updated": "2026-09-12T13:51:02.398Z"
+}
